@@ -163,7 +163,6 @@
 			self::$twig_environment_settings = array(
 				'charset' => get_bloginfo('charset'),
 				'autoescape' => false,
-				'strict_variables' => true,
 				'auto_reload' => true,
 				'cache' => get_stylesheet_directory() . '/twig_cache'
 			);

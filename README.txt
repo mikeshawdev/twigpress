@@ -91,6 +91,9 @@ This filter is applied to your passed array of `$vars` immediately before the te
 
 == Changelog ==
 
+= 1.1.1 =
+* Strict variables are no longer enforced
+
 = 1.1.0 =
 * [Added] TwigPress now sets up a template cache in your theme folder
 * [Added] TwigPress sets the Twig core to recompile templates when the source code changes
