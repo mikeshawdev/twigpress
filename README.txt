@@ -2,7 +2,7 @@
 Contributors: MikeShaw217
 Tags: twig,templates,themes
 Requires at least: 3.3.1
-Tested up to: 3.8.1
+Tested up to: 3.9.1
 Stable tag: 1.1.0
 Version: 1.1.0
 License: GPL-2.0+
