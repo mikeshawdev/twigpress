@@ -3,8 +3,8 @@ Contributors: MikeShaw217
 Tags: twig,templates,themes
 Requires at least: 3.3.1
 Tested up to: 4.0
-Stable tag: 1.1.0
-Version: 1.1.0
+Stable tag: 1.1.1
+Version: 1.1.1
 License: GPL-2.0+
 
 This plugin provides a simple way for you to use the Twig templating system within WordPress themes.
