@@ -12,7 +12,7 @@
 	 * @wordpress-plugin
 	 * Plugin Name: TwigPress
 	 * Description: A plugin that allows the use of the <a href="http://twig.sensiolabs.org/">Twig templating engine</a> in WordPress themes
-	 * Version:     1.1.0
+	 * Version:     1.1.1
 	 * Author:      Mike Shaw
 	 * License:     GPL-2.0+
 	 * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
