@@ -5,7 +5,7 @@
 	 * @package   TwigPress
 	 * @author    Mike Shaw
 	 * @license   GPL-2.0+
-	 * @copyright 2013 Mike Shaw
+	 * @copyright 2014 Mike Shaw
 	 */
 
 	/**
@@ -14,7 +14,8 @@
 	 * @package TwigPress
 	 * @author  Mike Shaw
 	 */
-	class TwigPress {
+	class TwigPress
+	{
 		/**
 		 * Plugin version, used for cache-busting of style and script file references.
 		 *
@@ -99,17 +100,22 @@
 		 */
 		public static $template;
 
+
 		/**
 		 * Initialize the plugin.
 		 *
 		 * @since     1.0.0
 		 */
-		private function __construct() {
+		private function __construct()
+		{
 			self::$plugin_path = plugin_dir_path(__FILE__);
 
-			if(is_admin()) {
-				# Check that Twig is installed, if not we place a notice in the Admin
-				if(false == file_exists(WP_CONTENT_DIR . '/Twig/Autoloader.php')) {
+			if (is_admin()) {
+				/**
+				 * Check that Twig is installed, if not we place a notice in the
+				 * Admin area
+				 */
+				if (false === file_exists(WP_CONTENT_DIR . '/Twig/Autoloader.php')) {
 					add_action('admin_notices', array($this, 'twig_files_not_found_notification'), 0, 0);
 				}
 			} else {
@@ -121,6 +127,7 @@
 			}
 		}
 
+
 		/**
 		 * Return an instance of this class.
 		 *
@@ -128,23 +135,26 @@
 		 *
 		 * @return    object    A single instance of this class.
 		 */
-		public static function get_instance() {
+		public static function get_instance()
+		{
 			# If the single instance hasn't been set, set it now.
-			if (null == self::$instance) {
+			if (null === self::$instance) {
 				self::$instance = new self;
 			}
 
 			return self::$instance;
 		}
 
+
 		/**
 		 * This function sets up the Twig environment
 		 *
 		 * @since 1.0.0
 		 */
-		public function setup_twig_environment() {
+		public function setup_twig_environment()
+		{
 			# Include the Twig Autoloader and register Twig
-			require_once(WP_CONTENT_DIR . '/Twig/Autoloader.php');
+			require_once WP_CONTENT_DIR . '/Twig/Autoloader.php';
 			Twig_Autoloader::register();
 
 			# Setup options for the Twig environment
@@ -159,7 +169,12 @@
 			self::add_global_functions();
 		}
 
-		private function setup_twig_environment_options() {
+
+		/**
+		 * Apply environment settings for Twig
+		 */
+		private function setup_twig_environment_options()
+		{
 			self::$twig_environment_settings = array(
 				'charset' => get_bloginfo('charset'),
 				'autoescape' => false,
@@ -168,12 +183,14 @@
 			);
 		}
 
+
 		/**
 		 * This function is responsible for adding global variables to the system
 		 *
 		 * @since 1.0.0
 		 */
-		private function add_global_variables() {
+		private function add_global_variables()
+		{
 			# Here we set some default global variables
 			self::$global_variables = array(
 				'site' => array(
@@ -195,6 +212,7 @@
 			}
 		}
 
+
 		/**
 		 * This function is responsible for adding global functions to the system
 		 *
@@ -203,7 +221,8 @@
 		 *
 		 * @since 1.0.0
 		 */
-		private function add_global_functions() {
+		private function add_global_functions()
+		{
 			# Here we set some default functions to be added
 			self::$global_functions = array (
 				'wp_head',
@@ -217,9 +236,9 @@
 			self::$global_functions = apply_filters('twigpress_twig_global_functions', self::$global_functions);
 
 			# Let's iterate through our functions array and make them available
-			foreach(self::$global_functions as $function) {
+			foreach (self::$global_functions as $function) {
 				# If a string isn't passed, or the string is empty we can't add it to the environment
-				if( ! is_string($function) || empty($function)) {
+				if (empty($function) || !is_string($function)) {
 					echo 'Each index in the global functions array must be a string containing a function name, could not add "' . $function . '"';
 					continue;
 				}
@@ -228,15 +247,17 @@
 			}
 		}
 
+
 		/**
 		 * A wrapper function for rendering templates
 		 *
 		 * @param   string   $template      The name of the template that is to be rendered
-		 * @param   array    $vals              An array of variables that are to be rendered with the template
+		 * @param   array    $vals          An array of variables that are to be rendered with the template
 		 *
 		 * @since 1.0.0
 		 */
-		public function render_template($template, $vals) {
+		public function render_template($template, $vals)
+		{
 			/**
 			 * Allow users to add variables to every template just before rendering. This means that all functions
 			 * and data the page has access to are available.
@@ -246,14 +267,17 @@
 			return self::$twig_environment->render($template, $vals);
 		}
 
+
 		/**
 		 * Fired when the plugin cannot find the Twig files, displays a notice in the Admin
 		 *
 		 * @since 1.0.0
 		 */
-		public static function twig_files_not_found_notification() {
+		public static function twig_files_not_found_notification()
+		{
 			echo '<div class="error"><p><b>Warning:</b> TwigPress cannot find the Twig autoloader.php file. This is required!</p></div>';
 		}
+
 
 		/**
 		 * This function simply stores, in $template, the filename of the template being used
@@ -262,7 +286,8 @@
 		 *
 		 * @since 1.0.0
 		 */
-		public function get_chosen_template_name($template) {
+		public function get_chosen_template_name($template)
+		{
 			return self::$template = $template;
 		}
 	}
