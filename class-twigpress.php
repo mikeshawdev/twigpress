@@ -23,7 +23,7 @@
 		 *
 		 * @var     string
 		 */
-		protected $version = '1.1.1';
+		protected $version = '1.1.2';
 
 		/**
 		 * Unique identifier for your plugin.
@@ -164,6 +164,10 @@
 			self::$twig_loader = new Twig_Loader_Filesystem(get_stylesheet_directory() . '/twigs');
 			self::$twig_environment = new Twig_Environment(self::$twig_loader, self::$twig_environment_settings);
 
+			if (defined('WP_DEBUG') && true === WP_DEBUG) {
+				self::$twig_environment->addExtension(new Twig_Extension_Debug());
+			}
+
 			# Run our functions for adding global functions and variables to the environment
 			self::add_global_variables();
 			self::add_global_functions();
@@ -181,6 +185,10 @@
 				'auto_reload' => true,
 				'cache' => get_stylesheet_directory() . '/twig_cache'
 			);
+
+			if (defined('WP_DEBUG') && true === WP_DEBUG) {
+				self::$twig_environment_settings['debug'] = true;
+			}
 		}
 
 

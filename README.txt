@@ -1,10 +1,10 @@
 === TwigPress ===
 Contributors: MikeShaw217
 Tags: twig,templates,themes
-Requires at least: 3.3.1
-Tested up to: 4.0
-Stable tag: 1.1.1
-Version: 1.1.1
+Requires at least: 4.1
+Tested up to: 4.1
+Stable tag: 1.1.2
+Version: 1.1.2
 License: GPL-2.0+
 
 This plugin provides a simple way for you to use the Twig templating system within WordPress themes.
@@ -90,6 +90,9 @@ This filter is applied to your passed array of `$vars` immediately before the te
 
 
 == Changelog ==
+
+= 1.1.2 =
+* [Added] If WP_DEBUG is enabled, turn on debugging in the Twig environment
 
 = 1.1.1 =
 * Strict variables are no longer enforced
