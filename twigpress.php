@@ -1,82 +1,72 @@
 <?php
 
-	/**
-	 * TwigPress
-	 *
-	 * A plugin that allows the use of the Twig template engine to make templates for WordPress themes
-	 *
-	 * @package   TwigPress
-	 * @author    Mike Shaw
-	 * @license   GPL-2.0+
-	 * @copyright 2014 Mike Shaw
-	 *
-	 * @wordpress-plugin
-	 * Plugin Name: TwigPress
-	 * Description: A plugin that allows the use of the <a href="http://twig.sensiolabs.org/">Twig templating engine</a> in WordPress themes
-	 * Version:     1.1.2
-	 * Author:      Mike Shaw
-	 * License:     GPL-2.0+
-	 * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
-	 */
+/**
+ * TwigPress bootstrap file
+ *
+ * @link              https://github.com/mikeshawdev/twigpress
+ * @since             2.0.0
+ * @package           TwigPress
+ *
+ * @wordpress-plugin
+ * Plugin Name:       TwigPress
+ * Plugin URI:        https://github.com/mikeshawdev/twigpress/
+ * Description:       Provides functionality for using the Twig templating engine in your theme.
+ * Version:           2.0.0
+ * Author:            Mike Shaw Author
+ * URI:               https://github.com/mikeshawdev/
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       twigpress
+ * Domain Path:       /languages
+ */
 
-	# If this file is called directly, abort.
-	if (!defined('WPINC')) {
-		die;
-	}
+// If this file is called directly, abort.
+if ( ! defined('WPINC')) {
+    die;
+}
 
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-twigpress-activator.php
+ */
+function activate_twigpress()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-twigpress-activator.php';
+    TwigPress_Activator::activate();
+}
 
-	# Bring in the TwigPress class file
-	require_once plugin_dir_path(__FILE__) . 'class-twigpress.php';
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-twigpress-deactivator.php
+ */
+function deactivate_twigpress()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-twigpress-deactivator.php';
+    TwigPress_Deactivator::deactivate();
+}
 
-	# Initialise TwigPress
-	TwigPress::get_instance();
+register_activation_hook(__FILE__, 'activate_twigpress');
+register_deactivation_hook(__FILE__, 'deactivate_twigpress');
 
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path(__FILE__) . 'includes/class-twigpress.php';
 
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    2.0.0
+ */
+function run_twigpress()
+{
+    $plugin = new TwigPress();
+    $plugin->run();
+}
 
-
-
-	/**
-	 * A function for rendering a template through calling the TwigPress Class
-	 *
-	 * @param array    $vals            An array of variables to be rendered with the template, defaults to an empty array
-	 * @param string   $template        The name of the template to be rendered, if users want to override the default action, defaults to false
-	 * @param bool     $echo            A boolean indicating whether to echo or return the rendered template, defaults to true
-	 *
-	 * @return string The rendered template
-	 */
-	function twigpress_render_twig_template($vals = array(), $template = false, $echo = true)
-	{
-		$TwigPress = TwigPress::get_instance();
-
-		# If no template has been specified, look for {PHP Template Filename}.twig
-		if (false === $template) {
-			$template = pathinfo(basename($TwigPress::$template), PATHINFO_FILENAME) . '.twig';
-		}
-
-		# Check whether we are echoing or returning
-		if (true === $echo) {
-			echo $TwigPress->render_template($template, $vals);
-		} else {
-			return $TwigPress->render_template($template, $vals);
-		}
-	}
-
-
-
-
-
-	/**
-	 * Function for return the content for a post
-	 *
-	 * As get_the_content() returns the unformatted content, this function takes
-	 * care of turning the unformatted content into formated content for passing
-	 * to a template
-	 *
-	 * This function can only be used inside the loop
-	 *
-	 * @return string The string of formatted content
-	 */
-	function twigpress_get_the_content()
-	{
-		return str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content()));
-	}
+run_twigpress();
