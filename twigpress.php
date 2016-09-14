@@ -12,7 +12,7 @@
  * Plugin URI:        https://github.com/mikeshawdev/twigpress/
  * Description:       Provides functionality for using the Twig templating engine in your theme.
  * Version:           2.0.0
- * Author:            Mike Shaw Author
+ * Author:            Mike Shaw <mikeshawweb@gmail.com>
  * URI:               https://github.com/mikeshawdev/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
